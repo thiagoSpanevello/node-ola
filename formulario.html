@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    
+
+    <style>
+        .Texto {
+            text-align: center;
+            margin-top: 0%;
+            padding-top: 20%;
+        }
+
+        .btn {
+            color: midnightblue;
+            margin-top: 0%;
+            padding-top: 0%;
+        }
+    </style>
+
+</head>
+<script>
+
+    function enviar(jsonObj) {
+        
+        var data = document.getElementById('aniver').value;
+        //var datacerta = moment(data, 'DD-MM-YYYY').format('YYYY-MM-DD');
+        var nome = document.getElementById('nome').value;    
+        var objeto = { 'nome': nome, 'aniversario': data};
+        console.log('Posting...');
+        fetch('http://localhost:3000/inputar', {
+            method: 'post',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(objeto)
+        }).then(function (response) {
+            console.log(response);
+            alert("alo");
+        });
+    }
+
+</script>
+
+<body>
+    <div class="Texto">
+        <form>
+            <h1>Nome do Aluno</h1>
+            <input name='name' id="nome" />
+            <h1>Data de Aniversário do Aluno</h1>
+            <input name="aniversario" id="aniver"/>
+        </form>
+
+        <button class="btn" onclick="enviar()">Salvar</button>
+    </div>
+
+</body>
+
+</html>

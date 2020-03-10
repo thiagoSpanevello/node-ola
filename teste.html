@@ -1,0 +1,171 @@
+<html>
+
+<head>
+  <title> Calendário </title>
+</head>
+<script>
+  function addDia(e) {
+    var nome = prompt("digite o nome");
+    var data = prompt("digite a data");
+    e.innerHTML += `<span>nome: ${nome}; <br> data: ${data}<br> </span>`;
+    var objeto = { 'nome': nome, 'aniversario': data};
+        console.log('Posting...');
+        fetch('http://localhost:3000/inputar', {
+            method: 'post',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(objeto)
+        }).then(function (response) {
+            console.log(response);
+            alert("alo");
+        });
+  }
+
+  function Listar() {
+    let url = 'http://localhost:3000/listar';
+    var div = document.getElementById("Resultado");
+    fetch(url)
+      .then(res => res.json())
+      .then((out) => {
+        console.log('Checkout this JSON! ', out);
+        out.forEach(aluno => {
+          let nome = aluno.nome;
+          let aniver = aluno.aniversario
+          // console.log(aniver.substring(0, 10))
+          let regex = /(?<data>(?<ano>\d\d\d\d)-(?<mes>\d\d)-(?<dia>\d\d))/
+          let x = aniver.match(regex)
+
+          var date = x.groups.data
+            var day = x.groups.dia
+          console.log(date);
+
+          for (var i = 1; i <= 31; i++) {
+            var celula = document.getElementById(i);
+            if (celula) {
+              // console.log(data, day, parseInt(data) == day);
+
+              if (parseInt(day) == i) {
+                celula.innerHTML += `<br><span>nome: ${nome}; <br>data: ${date}</span><br>`;
+              }
+            }
+          }
+        });
+      })
+      .catch(err => { throw err });
+  }
+
+</script>
+<style>
+  .span {
+    text-align: center;
+    padding-top: 50px;
+
+  }
+
+  .linha {
+    margin-top: 5%;
+    margin-bottom: 5%;
+
+  }
+
+  .celula {
+    border-width: 3px, 3px, 3px, 3px;
+    border-style: solid;
+    border-color: black;
+    background-color: gray;
+    height: 50px;
+    width: 50px;
+    font-size: 30px
+  }
+
+  .linha {
+    padding-top: 3%;
+    padding-bottom: 3%;
+  }
+</style>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384"></script>
+
+<body onload="Listar()">
+
+  <div style="text-align: center;">
+    <h1>Janeiro</h1>
+  </div>
+  <div>
+
+    <div class="row" style="padding-right: 11%; padding-left: 10%; padding-top: 3%">
+      <div class="col"><span class="celula">Dom</span></div>
+      <div class="col"><span class="celula">Seg</span></div>
+      <div class="col"><span class="celula">Ter</span></div>
+      <div class="col"><span class="celula">Qua</span></div>
+      <div class="col"><span class="celula">Qui</span></div>
+      <div class="col"><span class="celula">Sex</span></div>
+      <div class="col"><span class="celula">Sab</span></div>
+    </div>
+    <div class="container">
+      <div class="linha">
+        <div class="row">
+          <div class="col" id="1" onclick="addDia(this)">1<div></div>
+          </div>
+          <div class="col" id="2" onclick="addDia(this)">2<div></div>
+          </div>
+          <div class="col" id="3" onclick="addDia(this)">3 </div>
+          <div class="col" id="4" onclick="addDia(this)">4 </div>
+          <div class="col" id="5" onclick="addDia(this)">5 </div>
+          <div class="col" id="6" onclick="addDia(this)">6 </div>
+          <div class="col" id="7" onclick="addDia(this)">7 </div>
+        </div>
+      </div>
+      <div class="linha">
+        <div class="row">
+          <div class="col" id="8" style="margin-bottom: 1%" onclick="addDia(this)">8 </div>
+          <div class="col" id="9" onclick="addDia(this)">9 </div>
+          <div class="col" id="10" onclick="addDia(this)">10 </div>
+          <div class="col" id="11" onclick="addDia(this)">11 </div>
+          <div class="col" id="12" onclick="addDia(this)">12 </div>
+          <div class="col" id="13" onclick="addDia(this)">13 </div>
+          <div class="col" id="14" onclick="addDia(this)">14 </div>
+
+        </div>
+      </div>
+      <div class="linha">
+      <div class="row">
+        <div class="col" id="15" style="margin-bottom: 1%" onclick="addDia(this)">15 </div>
+        <div class="col" id="16" onclick="addDia(this)">16 </div>
+        <div class="col" id="17" onclick="addDia(this)">17 </div>
+        <div class="col" id="18" onclick="addDia(this)">18 </div>
+        <div class="col" id="19" onclick="addDia(this)">19 </div>
+        <div class="col" id="20" onclick="addDia(this)">20 </div>
+        <div class="col" id="21" onclick="addDia(this)">21 </div>
+      </div>
+      </div>
+      <div class="linha">
+      <div class="row">
+        <div class="col" id="22" style="margin-bottom: 1%" onclick="addDia(this)">22 </div>
+        <div class="col" id="23" onclick="addDia(this)">23 </div>
+        <div class="col" id="24" onclick="addDia(this)">24 </div>
+        <div class="col" id="25" onclick="addDia(this)">25 </div>
+        <div class="col" id="26" onclick="addDia(this)">26 </div>
+        <div class="col" id="27" onclick="addDia(this)">27 </div>
+        <div class="col" id="28" onclick="addDia(this)">28 </div>
+      </div>
+      </div>
+      <div class="row" style="padding-right: 25%">
+        <div class="col-2" id="29" onclick="addDia(this)">29</div>
+        <div class="col-2" id="30" style="padding-left: 4%" onclick="addDia(this)">30 </div>
+        <div class="col-2" id="31" style="padding-left: 6.2%" onclick="addDia(this)">31 </div>
+      </div>
+    </div>
+  </div>
+  <div id="Resultado"></div>
+</body>
+
+</html>
