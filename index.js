@@ -26,25 +26,25 @@ connection.connect(function (err) {
 app.use(cors());
 
 //rotas
-app.post('/inputar', function(req, res) {
+app.post('/inputar', function (req, res) {
     console.log(req.body);
     let data = moment(req.body.aniversario, 'DD-MM-YYYY').format('YYYY-MM-DD');
     console.log(data);
-    
-    connection.query(`insert into alun(nome, aniversario) values ('${req.body.nome}', '${data}')`, function(error, results, fields) {       
-        if(error)
-        res.json(error);
+
+    connection.query(`insert into alun(nome, aniversario) values ('${req.body.nome}', '${data}')`, function (error, results, fields) {
+        if (error)
+            res.json(error);
         else
-        res.json({"valor": "1"})
+            res.json({ "valor": "1" })
     });
 });
 
-app.get('/listar', function(req, res){
-    connection.query("select * from alun ", function(error, results, fields){
+app.get('/listar', function (req, res) {
+    connection.query("select * from alun ", function (error, results, fields) {
         if (error)
             res.json(error)
         else
-        res.json(results)
+            res.json(results)
     });
 });
 app.listen(3000, function () { console.log('example app listening on port 3000') });
